@@ -1,0 +1,28 @@
+language: php
+
+php:
+  - 5.6
+
+sudo: false
+
+cache:
+   directories:
+     - $HOME/.composer/cache/files
+
+
+install:
+  - git clone https://github.com/shopware/shopware.git
+  - cd shopware
+  - ant -f build/build.xml -Dapp.host=localhost -Ddb.user=travis -Ddb.host=127.0.0.1 -Ddb.name=shopware build-unit
+  - cd custom/plugins
+  - git clone https://github.com/$TRAVIS_REPO_SLUG.git TestPlugin
+  - cd PlentyConnector
+  - composer install
+  - cd $TRAVIS_BUILD_DIR/shopware
+  - php bin/console sw:plugin:refresh
+  - php bin/console sw:plugin install TestPlugin
+  - php bin/console sw:plugin activate TestPlugin
+
+matrix:
+  allow_failures:
+    - php: nightly
