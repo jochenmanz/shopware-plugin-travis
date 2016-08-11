@@ -30,6 +30,7 @@ install:
   - php bin/console sw:plugin:refresh
   - php bin/console sw:plugin:install TestPlugin
   - php bin/console sw:plugin:activate TestPlugin
+  - cd /home/travis/build/$TRAVIS_REPO_SLUG
   - composer test
 
 matrix:
