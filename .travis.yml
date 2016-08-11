@@ -18,7 +18,7 @@ before_script:
 install:
   - git clone https://github.com/shopware/shopware.git $HOME/shopware
   - ant -f $HOME/shopware/build/build.xml -Dapp.host=localhost -Ddb.user=travis -Ddb.host=127.0.0.1 -Ddb.name=shopware build-unit
-  - mv $TRAVIS_BUILD_DIR TestPlugin
+  - mv $TRAVIS_BUILD_DIR $HOME/shopware/custom/plugins/TestPlugin
   - cd $HOME/shopware/custom/plugins/TestPlugin
   - composer install
   - cd /home/travis/build/shopware
