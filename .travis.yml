@@ -8,6 +8,10 @@ sudo: false
 services:
   - mysql
 
+env:
+  - PLUGIN_NAME=TestPlugin
+  - PLUGIN_DIRECTORY=$HOME/shopware/custom/plugins
+
 cache:
    directories:
      - $HOME/.composer/cache/files
@@ -18,14 +22,13 @@ before_script:
 install:
   - git clone https://github.com/shopware/shopware.git $HOME/shopware
   - ant -f $HOME/shopware/build/build.xml -Dapp.host=localhost -Ddb.user=travis -Ddb.host=127.0.0.1 -Ddb.name=shopware build-unit
-  - mv $TRAVIS_BUILD_DIR $HOME/shopware/custom/plugins/TestPlugin
-  - cd $HOME/shopware/custom/plugins/TestPlugin
+  - mv $TRAVIS_BUILD_DIR $PLUGIN_DIRECTORY/$PLUGIN_NAME
+  - cd $PLUGIN_DIRECTORY/$PLUGIN_NAME
   - composer install
-  - cd /home/travis/build/shopware
-  - php bin/console sw:plugin:refresh
-  - php bin/console sw:plugin:install TestPlugin
-  - php bin/console sw:plugin:activate TestPlugin
-  - cd $HOME/shopware/custom/plugins/TestPlugin
+  - php $HOME/shopware/bin/console sw:plugin:refresh
+  - php $HOME/shopware/bin/console sw:plugin:install $PLUGIN_NAME
+  - php $HOME/shopware/bin/console sw:plugin:activate $PLUGIN_NAME
+  - cd $PLUGIN_DIRECTORY/$PLUGIN_NAME
   - composer test
 
 matrix:
