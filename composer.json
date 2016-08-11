@@ -6,5 +6,8 @@
             "email": "manz@arvatis.com"
         }
     ],
-    "require": {}
+    "require": {},
+    "scripts": {
+        "test": "phpunit -c tests/"
+    }
 }
