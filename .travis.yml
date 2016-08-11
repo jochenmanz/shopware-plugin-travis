@@ -24,7 +24,7 @@ install:
   - cd custom/plugins
   - pwd
   - ls -ahl
-  - ln -s $TRAVIS_BUILD_DIR/$TRAVIS_REPO_SLUG TestPlugin
+  - ln -s $TRAVIS_BUILD_DIR TestPlugin
   - cd TestPlugin
   - composer install
   - cd /home/travis/build/shopware
