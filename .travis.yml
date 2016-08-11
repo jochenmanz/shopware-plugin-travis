@@ -16,21 +16,16 @@ before_script:
   - phpenv config-rm xdebug.ini
 
 install:
-  - cd /home/travis/build
-  - git clone https://github.com/shopware/shopware.git
-  - cd shopware
-  - ant -f build/build.xml -Dapp.host=localhost -Ddb.user=travis -Ddb.host=127.0.0.1 -Ddb.name=shopware build-unit
-  - cd custom/plugins
-  - pwd
-  - ls -ahl
-  - ln -s $TRAVIS_BUILD_DIR TestPlugin
-  - cd TestPlugin
+  - git clone https://github.com/shopware/shopware.git $HOME/shopware
+  - ant -f $HOME/shopware/build/build.xml -Dapp.host=localhost -Ddb.user=travis -Ddb.host=127.0.0.1 -Ddb.name=shopware build-unit
+  - mv $TRAVIS_BUILD_DIR TestPlugin
+  - cd $HOME/shopware/custom/plugins/TestPlugin
   - composer install
   - cd /home/travis/build/shopware
   - php bin/console sw:plugin:refresh
   - php bin/console sw:plugin:install TestPlugin
   - php bin/console sw:plugin:activate TestPlugin
-  - cd /home/travis/build/shopware/custom/plugins/TestPlugin
+  - cd $HOME/shopware/custom/plugins/TestPlugin
   - composer test
 
 matrix:
