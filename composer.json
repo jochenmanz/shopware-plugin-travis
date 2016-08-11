@@ -1,0 +1,10 @@
+{
+    "name": "jochenmanz/shopware-plugin-travis",
+    "authors": [
+        {
+            "name": "Jochen Manz",
+            "email": "manz@arvatis.com"
+        }
+    ],
+    "require": {}
+}
