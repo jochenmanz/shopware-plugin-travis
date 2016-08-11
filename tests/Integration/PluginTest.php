@@ -1,5 +1,7 @@
 <?php
 
+use Shopware\Components\DependencyInjection\Container;
+
 /**
  * Class PluginTest
  */
@@ -12,6 +14,6 @@ class PluginTest extends Enlight_Components_Test_TestCase
     {
         $container = Shopware()->Container();
 
-        $this->assertInstanceOf(\Shopware\Components\DependencyInjection\Container::class, $container);
+        $this->assertInstanceOf(Container::class, $container);
     }
 }
