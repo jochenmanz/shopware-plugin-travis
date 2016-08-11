@@ -17,8 +17,7 @@ before_script:
   - mysql -e 'create database shopware;'
 
 install:
-  - echo $TRAVIS_BUILD_DIR
-  - cd $TRAVIS_BUILD_DIR
+  - cd /home/travis/build
   - git clone https://github.com/shopware/shopware.git
   - cd shopware
   - ant -f build/build.xml -Dapp.host=localhost -Ddb.user=travis -Ddb.host=127.0.0.1 -Ddb.name=shopware build-unit
@@ -28,7 +27,7 @@ install:
   - ln -s $TRAVIS_BUILD_DIR/$TRAVIS_REPO_SLUG TestPlugin
   - cd TestPlugin
   - composer install
-  - cd $TRAVIS_BUILD_DIR/shopware
+  - cd /home/travis/build/shopware
   - php bin/console sw:plugin:refresh
   - php bin/console sw:plugin install TestPlugin
   - php bin/console sw:plugin activate TestPlugin
