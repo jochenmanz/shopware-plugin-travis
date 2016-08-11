@@ -17,11 +17,10 @@ cache:
    directories:
      - $HOME/.composer/cache/files
 
-before_script:
-  - cd $PLUGIN_DIRECTORY/$PLUGIN_NAME
+before_install:
+  - phpenv config-rm xdebug.ini
 
 install:
-  - phpenv config-rm xdebug.ini
   - git clone https://github.com/shopware/shopware.git $HOME/shopware
   - ant -f $HOME/shopware/build/build.xml -Dapp.host=localhost -Ddb.user=travis -Ddb.host=127.0.0.1 -Ddb.name=shopware build-unit
   - mv $TRAVIS_BUILD_DIR $PLUGIN_DIRECTORY/$PLUGIN_NAME
@@ -30,7 +29,11 @@ install:
   - php $HOME/shopware/bin/console sw:plugin:refresh
   - php $HOME/shopware/bin/console sw:plugin:install $PLUGIN_NAME
   - php $HOME/shopware/bin/console sw:plugin:activate $PLUGIN_NAME
+
+before_script:
   - cd $PLUGIN_DIRECTORY/$PLUGIN_NAME
+
+script:
   - composer test
 
 matrix:
