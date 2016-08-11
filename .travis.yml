@@ -18,6 +18,8 @@ install:
   - cd shopware
   - ant -f build/build.xml -Dapp.host=localhost -Ddb.user=travis -Ddb.host=127.0.0.1 -Ddb.name=shopware build-unit
   - cd custom/plugins
+  - pwd
+  - ls -ahl
   - ln -s $TRAVIS_BUILD_DIR/$TRAVIS_REPO_SLUG TestPlugin
   - cd TestPlugin
   - composer install
