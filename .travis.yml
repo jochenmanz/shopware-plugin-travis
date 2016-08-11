@@ -9,13 +9,16 @@ cache:
    directories:
      - $HOME/.composer/cache/files
 
+before_script:
+  - phpenv config-rm xdebug.ini
 
 install:
+  - cd $TRAVIS_BUILD_DIR
   - git clone https://github.com/shopware/shopware.git
   - cd shopware
   - ant -f build/build.xml -Dapp.host=localhost -Ddb.user=travis -Ddb.host=127.0.0.1 -Ddb.name=shopware build-unit
   - cd custom/plugins
-  - git clone https://github.com/$TRAVIS_REPO_SLUG.git TestPlugin
+  - ln -s $TRAVIS_BUILD_DIR/$TRAVIS_REPO_SLUG TestPlugin
   - cd TestPlugin
   - composer install
   - cd $TRAVIS_BUILD_DIR/shopware
