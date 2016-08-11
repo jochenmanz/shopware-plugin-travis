@@ -1,6 +1,6 @@
 <?php
 
-namespace PlentyConnector;
+namespace TestPlugin;
 
 use Doctrine\ORM\EntityManagerInterface;
 use PlentyConnector\Adapter\Plentymarkets\Plentymarkets;
