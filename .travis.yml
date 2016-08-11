@@ -9,17 +9,19 @@ services:
   - mysql
 
 env:
-  - PLUGIN_NAME=TestPlugin
-  - PLUGIN_DIRECTORY=$HOME/shopware/custom/plugins
+  global:
+    - PLUGIN_NAME=TestPlugin
+    - PLUGIN_DIRECTORY=$HOME/shopware/custom/plugins
 
 cache:
    directories:
      - $HOME/.composer/cache/files
 
 before_script:
-  - phpenv config-rm xdebug.ini
+  - cd $PLUGIN_DIRECTORY/$PLUGIN_NAME
 
 install:
+  - phpenv config-rm xdebug.ini
   - git clone https://github.com/shopware/shopware.git $HOME/shopware
   - ant -f $HOME/shopware/build/build.xml -Dapp.host=localhost -Ddb.user=travis -Ddb.host=127.0.0.1 -Ddb.name=shopware build-unit
   - mv $TRAVIS_BUILD_DIR $PLUGIN_DIRECTORY/$PLUGIN_NAME
