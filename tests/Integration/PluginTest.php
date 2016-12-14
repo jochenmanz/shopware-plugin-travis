@@ -3,12 +3,12 @@
 use Shopware\Components\DependencyInjection\Container;
 
 /**
- * Class PluginTest
+ * Class PluginTest.
  */
 class PluginTest extends Enlight_Components_Test_TestCase
 {
     /**
-     * Test case
+     * Test case.
      */
     public function testShopwareIntegration()
     {
