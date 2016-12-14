@@ -42,4 +42,5 @@ script:
 
 matrix:
   allow_failures:
+    - env: SHOPWARE_VERSION="5.3"
     - php: nightly
