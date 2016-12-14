@@ -13,8 +13,8 @@ services:
 
 env:
   matrix:
-    - SHOPWARE_VERSION="5.3"
     - SHOPWARE_VERSION="5.2"
+    - SHOPWARE_VERSION="5.3"
   global:
     - PLUGIN_NAME=TestPlugin
     - SHOPWARE_DIRECTORY=${HOME}/shopware
