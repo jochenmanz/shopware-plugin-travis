@@ -6,16 +6,15 @@ php:
   - 7.1
   - nightly
 
-env:
-    - SHOPWARE_VERSION="5.3"
-    - SHOPWARE_VERSION="5.2"
-
 sudo: false
 
 services:
   - mysql
 
 env:
+  matrix:
+    - SHOPWARE_VERSION="5.3"
+    - SHOPWARE_VERSION="5.2"
   global:
     - PLUGIN_NAME=TestPlugin
     - SHOPWARE_DIRECTORY=$HOME/shopware
