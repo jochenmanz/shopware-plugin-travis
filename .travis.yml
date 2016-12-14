@@ -2,6 +2,13 @@ language: php
 
 php:
   - 5.6
+  - 7.0
+  - 7.1
+  - nightly
+
+env:
+    - SHOPWARE_VERSION="5.3"
+    - SHOPWARE_VERSION="5.2"
 
 sudo: false
 
@@ -11,16 +18,21 @@ services:
 env:
   global:
     - PLUGIN_NAME=TestPlugin
-    - PLUGIN_DIRECTORY=$HOME/shopware/custom/plugins
+    - SHOPWARE_DIRECTORY=$HOME/shopware
+    - PLUGIN_DIRECTORY=$SHOPWARE_DIRECTORY/custom/plugins
 
 cache:
    directories:
      - $HOME/.composer/cache/files
 
+install:
+  - composer install
+
 before_script:
-  - phpenv config-rm xdebug.ini
-  - git clone https://github.com/shopware/shopware.git $HOME/shopware
-  - ant -f $HOME/shopware/build/build.xml -Dapp.host=localhost -Ddb.user=travis -Ddb.host=127.0.0.1 -Ddb.name=shopware build-unit
+  - if [[ "$(php --version | grep -cim1 xdebug)" -ge 1 ]]; then phpenv config-rm xdebug.ini; fi
+  - git clone https://github.com/shopware/shopware.git $SHOPWARE_DIRECTORY
+  - git checkout ${SHOPWARE_VERSION}
+  - ant -f $SHOPWARE_DIRECTORY/build/build.xml -Dapp.host=localhost -Ddb.user=travis -Ddb.host=127.0.0.1 -Ddb.name=shopware build-unit
   - mv $TRAVIS_BUILD_DIR $PLUGIN_DIRECTORY/$PLUGIN_NAME
   - php $HOME/shopware/bin/console sw:plugin:refresh
   - php $HOME/shopware/bin/console sw:plugin:install $PLUGIN_NAME
